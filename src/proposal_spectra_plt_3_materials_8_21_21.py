@@ -11,7 +11,7 @@ files = ['20210616_(4MeOPEABr)2-PbBr2_4k_572_spectra.csv',
         '20210601_(PEABr)2-PbBr2_4k_544_spectra.csv',
         '20210616_4OH-PEABr_PbBr2_15k_573_spectra.csv']
 
-out_dir = 'proposal_plotting_8_21_21/'
+out_dir = 'out/proposal_plotting_8_21_21/'
 
 if not os.path.exists(out_dir):
     os.makedirs(out_dir)
@@ -77,6 +77,6 @@ for f in files:
     FWHM = scipy.signal.peak_widths(spectrum[peak_index[0], 1:],
             [peak_index[1]])
 
-#plt.title()
+plt.title("Shifts in Emission Wavelength in Functionalized PEABr Derivatives")
 plt.savefig(out_dir + 'selected_spectra_max_intensities' + '.png')
 
