@@ -11,6 +11,15 @@ files = ['20210616_(4MeOPEABr)2-PbBr2_4k_572_spectra.csv',
         '20210601_(PEABr)2-PbBr2_4k_544_spectra.csv',
         '20210616_4OH-PEABr_PbBr2_15k_573_spectra.csv']
 
+files = ['20210616_(4MeOPEAI)2-PbI2_4k_570_spectra.csv',
+        '20210601_(PEAI)2-PbI2_20k_543_spectra.csv',
+        '20210608_(4OHPEAI)2-PbI2_200K_559_spectra.csv']
+
+group_title = 'PEAI'
+
+#20210608_(4FPEAI)2-PbI2_200k_561_spectra.csv
+#20210603_(3FPEAI)2-PbI2_500k_549_spectra.csv
+
 out_dir = 'out/proposal_plotting_8_21_21/'
 
 if not os.path.exists(out_dir):
@@ -54,7 +63,7 @@ for f in files:
     # plotting
     clr = next(colors)
     plt.plot(spectrum[:,0],spectrum[:,peak_index[1] + 1], color = clr)
-    plt.xlim([380,500])
+    plt.xlim([475, 600])
     #plt.ylim([0,70000/integration_time])
     plt.ylabel('Intensity (counts)')
     plt.xlabel('Wavelength (nm)')
@@ -71,12 +80,12 @@ for f in files:
 
     plt.legend()
 
-    
     # FWHM
     import scipy.signal
     FWHM = scipy.signal.peak_widths(spectrum[peak_index[0], 1:],
             [peak_index[1]])
 
-plt.title("Shifts in Emission Wavelength in Functionalized PEABr Derivatives")
-plt.savefig(out_dir + 'selected_spectra_max_intensities' + '.png')
+title = "Shifts in Emission Wavelength in Functionalized {} Derivatives"
+plt.title(title.format(group_title))
+plt.savefig(out_dir + group_title + '_selected_spectra_max_intensities' + '.png')
 
