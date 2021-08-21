@@ -4,7 +4,7 @@ import os
 import re
 
 
-path = 'Best_Raw_Spectra_June/'
+path = 'data/Best_Raw_Spectra_June/'
 
 files = [f for f in os.listdir(path) if f.endswith('csv')]
 files = ['20210616_(4MeOPEABr)2-PbBr2_4k_572_spectra.csv',
