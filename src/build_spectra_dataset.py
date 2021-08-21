@@ -6,8 +6,12 @@ import sys
 import glob
 import pandas as pd
 import pickle
+from scipy.signal import chirp, find_peaks, peak_widths
 
-path = 'Data/'
+path = 'data/'
+out_dir = 'out/'
+if not os.path.exists(out_dir):
+    os.makedirs(out_dir)
 
 ### Part 1: Formatting spectra files and scaling
 
@@ -23,9 +27,6 @@ for f in spectra_listing:
     spectrum_wl = np.loadtxt(f, delimiter = ',') # spectrum + wavelength
     wavelengths = spectrum_wl[:,0]
 
-    with open('wavelengths.npy', 'wb') as fn:
-        np.save(fn, wavelengths)
-
     spectrum = spectrum_wl[:,1:] # only spectrum
 
     # reading data from file name and
@@ -38,7 +39,7 @@ for f in spectra_listing:
     integration_time = float(integration_time[:-1])*1000
     
     # divide by integration time for scaling all the files
-    spectrum = spectrum/integration_time
+    spectrum_scaled = spectrum/integration_time
 
     spectrum_width = spectrum.shape[1]
 
@@ -51,16 +52,22 @@ for f in spectra_listing:
 
     # peak wavelength calculation
     peak_intensities = np.max(spectrum, axis = 0)
+    peak_wavelengths_idx = np.argmax(spectrum, axis = 0)
     peak_wavelengths = wavelengths[np.argmax(spectrum, axis = 0)]
+
+    
+
 
     # creating a dataframe for the current spectra file
     spectrum_df = pd.DataFrame({
         'well_num': well_num,
         'drop_vol': drop_vol,
         'peak_wavelength': peak_wavelengths,
+        'peak_wavelength_idx': peak_wavelengths_idx,
         'peak_intensity': peak_intensities,
     # read each spectra file into a dataframe as a col of vectors
-        'spectrum': spectrum.T.tolist()})
+        'spectrum': spectrum.T.tolist()},
+        'spectrum_scaled': spectrum_scaled.T.tolist()})
 
     spectra_mats.append(spectrum)
 
@@ -99,12 +106,12 @@ for i,j in zip(exp_param_parts, spectra):
 
 # concatenate results
 result = pd.concat(joined)
-result.to_csv('Master_Spectra_DF.csv')
+result.to_csv(out_dir + 'Master_Spectra_DF.csv')
 # write result to pickle file for
-result.to_pickle("Master_Spectra_DF.pkl")
+result.to_pickle(out_dir + "Master_Spectra_DF.pkl")
 
-with open('spectra_mat.npy', 'wb') as f:
+with open(out_dir + 'spectra_mat.npy', 'wb') as f:
     np.save(f, np.concatenate([m.T for m in spectra_mats]))
 
-with open('wavelengths.npy', 'wb') as f:
+with open(out_dir + 'wavelengths.npy', 'wb') as f:
     np.save(f, wavelengths)
