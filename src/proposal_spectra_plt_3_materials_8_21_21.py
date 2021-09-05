@@ -87,8 +87,12 @@ content = [
             "xlim" : [380, 460]},
         {"group_title" :'PEAI',
             "files" : ['20210616_(4MeOPEAI)2-PbI2_4k_570_spectra.csv',
-            '20210601_(PEAI)2-PbI2_20k_543_spectra.csv'], #'20210608_(4OHPEAI)2-PbI2_200K_559_spectra.csv']
+            '20210601_(PEAI)2-PbI2_4k_543_spectra.csv'], #'20210608_(4OHPEAI)2-PbI2_200K_559_spectra.csv']
             "xlim" : [475, 600]},
+        {"group_title" :'FPEAI',
+            "files" : ['20210608_(4FPEAI)2-PbI2_200k_561_spectra.csv',
+            '20210603_(3FPEAI)2-PbI2_500k_549_spectra.csv'], #'20210608_(4OHPEAI)2-PbI2_200K_559_spectra.csv']
+            "xlim" : [400, 600]},
         ]
 
 #20210608_(4FPEAI)2-PbI2_200k_561_spectra.csv
