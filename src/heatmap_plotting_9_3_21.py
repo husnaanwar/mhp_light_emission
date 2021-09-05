@@ -4,15 +4,14 @@ import pandas as pd
 import math
 import matplotlib.pyplot as plt
 
-def plot_heatmap(in_file, out_file, title_str, cmap):
+def plot_heatmap(in_file, out_file, title_str, cmap,
+        xtick_list = [0,5,10,15,20],
+        xticklabs = ['0','0.25','0.5','0.75','1']):
     heatmap_dat = pd.read_csv(in_file)
 
     # read concentration from string formatted as e.g. '[.0001]'
     heatmap_dat['Concentration B (M)'] = heatmap_dat['Concentration B (M)'] \
-            .map(lambda x: x[1:-1]).astype('float').round(3)
-
-    # drop empty cols
-    heatmap_dat.drop(heatmap_dat.columns[[-1,-2]], axis=1, inplace=True)
+            .astype('float').round(3)
 
     # group by each square in the final heatmap and apply max/min/mean
     heatmap_dat = heatmap_dat.groupby(['Concentration B (M)', 'Antisolvent']) \
@@ -28,10 +27,9 @@ def plot_heatmap(in_file, out_file, title_str, cmap):
     ax = sns.heatmap(heatmap_dat.transpose(),
             cmap = cmap,
             cbar_kws={'label': 'Intensity (counts)'})
-    locs, labels = plt.xticks()
 
-    ax.set_xticks([0,5,10,15,20])
-    ax.set_xticklabels(['0','0.25','0.5','0.75','1'])
+    ax.set_xticks(xtick_list)
+    ax.set_xticklabels(xticklabs)
 
     plt.title("PL Intensity heatmap for {}".format(title_str))
 
@@ -44,6 +42,12 @@ plot_heatmap('data/PEABr_antisolvent_heatmap_9_3.csv',
         '$(PEABr)_{2}-PbBr_{2}$',
         'Blues')
 plot_heatmap('data/20210608-(4MeOPEAI)2-PbI2 - rough.csv',
-        'figs/heatmap_(MeOPEAI)2-PbI2.png',
+        'figs/heatmap_(MeOPEAI)2-PbI2_rough.png',
         '$(MeOPEAI)_{2}-PbI_{2}$',
         'Greens')
+plot_heatmap('data/20210616-(4MeOPEAI)2-PbI2.csv',
+        'figs/heatmap_(MeOPEAI)2-PbI2.png',
+        '$(MeOPEAI)_{2}-PbI_{2}$',
+        'Greens',
+        xtick_list = [1,14],
+        xticklabs = ['0.25','0.875'])
