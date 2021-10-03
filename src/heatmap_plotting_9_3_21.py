@@ -14,8 +14,15 @@ def plot_heatmap(in_file, out_file, title_str, cmap,
             .astype('float').round(3)
 
     # group by each square in the final heatmap and apply max/min/mean
-    heatmap_dat = heatmap_dat.groupby(['Concentration B (M)', 'Antisolvent']) \
-            .max().reset_index()
+    #heatmap_dat = heatmap_dat \
+    #        .groupby(['Concentration B (M)', 'Antisolvent']) \
+    #        .max().reset_index()
+
+    heatmap_dat['antisolvent_rank'] = heatmap_dat \
+            .groupby(['Concentration B (M)', 'Antisolvent']) \
+            .cumcount()+1
+    heatmap_dat['Antisolvent'] = heatmap_dat['Antisolvent'] \
+            + heatmap_dat['antisolvent_rank'].astype(str)
 
     # pivot to heatmap friendly (cols as antisolvent, rows as concentration)
     heatmap_dat = heatmap_dat.pivot(index='Concentration B (M)', 

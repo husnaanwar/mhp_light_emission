@@ -8,7 +8,7 @@ import pandas as pd
 import pickle
 from scipy.signal import chirp, find_peaks, peak_widths
 
-path = 'data/'
+path = 'Data/'
 out_dir = 'out/'
 if not os.path.exists(out_dir):
     os.makedirs(out_dir)
@@ -66,7 +66,7 @@ for f in spectra_listing:
         'peak_wavelength_idx': peak_wavelengths_idx,
         'peak_intensity': peak_intensities,
     # read each spectra file into a dataframe as a col of vectors
-        'spectrum': spectrum.T.tolist()},
+        'spectrum': spectrum.T.tolist(),
         'spectrum_scaled': spectrum_scaled.T.tolist()})
 
     spectra_mats.append(spectrum)
