@@ -1,1 +1,1 @@
-# This repo contains code for my PhD Thesis on MHP Light Emission
+# This repo contains code, images and data for "High-Throughput Evaluation of Emission and Structure in Perovskite Light Emitters"
