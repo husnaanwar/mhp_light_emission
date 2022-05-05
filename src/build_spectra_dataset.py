@@ -13,6 +13,8 @@ out_dir = 'out/'
 if not os.path.exists(out_dir):
     os.makedirs(out_dir)
 
+#### This script builds our spectra dataset
+
 ### Part 1: Formatting spectra files and scaling
 
 # read in spectra csvs
