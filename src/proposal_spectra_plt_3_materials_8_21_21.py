@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import os
 import re
 
+# this is a script that demonstrates some of the plotting we've done on the project
+
 out_dir = 'out/proposal_plotting_8_21_21/'
 
 if not os.path.exists(out_dir):

@@ -4,6 +4,8 @@ import pandas as pd
 import math
 import matplotlib.pyplot as plt
 
+# this script demonstrates heatmap plotting
+
 def plot_heatmap(in_file, out_file, title_str, cmap,
         xtick_list = [0,5,10,15,20],
         xticklabs = ['0','0.25','0.5','0.75','1']):

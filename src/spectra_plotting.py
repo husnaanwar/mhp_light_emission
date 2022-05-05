@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import os
 import re
 
+# this script demonstrates a scatter plot of peak intensities w text
 #path = 'Best_Raw_Spectra_June/'
 path = 'Feb-May_2021_Spectra/'
 
